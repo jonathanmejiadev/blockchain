@@ -2,16 +2,16 @@ const { SHA256 } = require('crypto-js');
 const { getTimestamp } = require('./utils');
 
 class Block {
-    constructor(timestamp, data, prevHash = '') {
+    constructor(timestamp, transactions, prevHash = '') {
         this.timestamp = timestamp || getTimestamp();
-        this.data = data;
+        this.transactions = transactions;
         this.prevHash = prevHash;
         this.wildcard = 0;
         this.hash = this.generateHash();
     };
 
     generateHash() {
-        return SHA256(this.timestamp + this.prevHash + JSON.stringify(this.data) + this.wildcard).toString();
+        return SHA256(this.timestamp + this.prevHash + JSON.stringify(this.transactions) + this.wildcard).toString();
     };
 
     mineBlock(difficulty) {
