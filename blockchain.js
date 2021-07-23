@@ -19,6 +19,17 @@ class BlockChain {
         newBlock.hash = newBlock.generateHash();
         this.chain.push(newBlock)
     };
+
+    validateChain() {
+        for (let block in this.chain) {
+            const currentBlock = this.chain[block];
+            const prevBlock = this.chain[block - 1];
+
+            if (currentBlock.hash !== currentBlock.generateHash()) return false;
+            if (prevBlock && currentBlock.prevHash !== prevBlock.hash) return false;
+        }
+        return true;
+    };
 };
 
 module.exports = { BlockChain };
