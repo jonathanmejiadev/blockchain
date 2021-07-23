@@ -4,6 +4,7 @@ const { getTimestamp } = require('./utils');
 class BlockChain {
     constructor() {
         this.chain = [this.createGenesisBlock()];
+        this.difficulty = 3;
     };
 
     createGenesisBlock() {
@@ -16,8 +17,8 @@ class BlockChain {
 
     addBlock(newBlock) {
         newBlock.prevHash = this.lastBlock().hash;
-        newBlock.hash = newBlock.generateHash();
-        this.chain.push(newBlock)
+        newBlock.mineBlock(this.difficulty);
+        this.chain.push(newBlock);
     };
 
     validateChain() {
